@@ -537,20 +537,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Footer ── */}
-        <footer
-          className="py-6 px-6 border-t text-center"
-          style={{
-            borderColor: "var(--color-border)",
-            background: "rgba(5, 8, 15, 0.85)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
-          }}
-        >
-          <p className="text-[11px] font-mono" style={{ color: "var(--color-text-dim)" }}>
-            FreightIQ v1.2 — Phase 12 &middot; SIH 2025 Maritime Intelligence Platform
-          </p>
-        </footer>
+
       </div>
     </div>
   );
