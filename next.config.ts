@@ -25,8 +25,6 @@ const nextConfig: NextConfig = {
 
     return config;
   },
-  // Transpile CesiumJS for proper ESM/CJS compatibility
-  transpilePackages: ["cesium"],
 };
 
 export default nextConfig;
