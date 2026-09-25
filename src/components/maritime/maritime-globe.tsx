@@ -8,6 +8,22 @@ import { useCurrentTheme } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import { getActiveVesselRoutes } from "@/lib/maritime-routing";
 
+let cesiumPromise: Promise<any> | null = null;
+const loadCesium = (): Promise<any> => {
+  if (typeof window === "undefined") return Promise.resolve(null);
+  if ((window as any).Cesium) return Promise.resolve((window as any).Cesium);
+  if (cesiumPromise) return cesiumPromise;
+  
+  cesiumPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "/cesium/Cesium.js";
+    script.onload = () => resolve((window as any).Cesium);
+    script.onerror = () => reject(new Error("Failed to load Cesium"));
+    document.head.appendChild(script);
+  });
+  return cesiumPromise;
+};
+
 export interface MaritimeGlobeProps {
   ports: Port[];
   vessels: VesselPosition[];
@@ -583,7 +599,7 @@ export function MaritimeGlobe({
     }
 
     const initCesium = async () => {
-      const Cesium = await import("cesium");
+      const Cesium = await loadCesium();
       if (isDestroyed || !containerRef.current) return;
 
       const creditDiv = document.createElement("div");
@@ -769,7 +785,7 @@ export function MaritimeGlobe({
     const viewer = viewerRef.current;
     if (!viewer) return;
 
-    import("cesium").then((Cesium) => {
+    loadCesium().then((Cesium) => {
       stateRef.current.autoRotatePaused = true;
       stateRef.current.lastInteraction = Date.now();
 
@@ -813,7 +829,7 @@ export function MaritimeGlobe({
   useEffect(() => {
     if (!viewerReady || !viewerRef.current) return;
 
-    import("cesium").then((Cesium) => {
+    loadCesium().then((Cesium) => {
       renderMaritimeOverlays(
         viewerRef.current,
         Cesium,
