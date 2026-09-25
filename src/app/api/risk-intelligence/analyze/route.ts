@@ -47,20 +47,21 @@ export async function POST(request: Request) {
       : vessel.vesselClass) as VesselClass;
 
     const forecasts: Record<string, any> = {};
-    for (const r of routes.slice(0, 5)) {
-      try {
-        const forecast = runForecastPipeline({
-          routeId: r.id,
-          vesselClass,
-          horizon: 30,
-          freightObservations: freightObs,
-          marketIndicators: [],
-          congestionData: getPortCongestionHistory(),
-          destinationPortId: route.destinationPortId,
-        });
-        forecasts[r.id] = forecast;
-      } catch { /* Non-fatal */ }
-    }
+    // SKIPPED: ML pipeline causes Serverless timeouts on Netlify.
+    // for (const r of routes.slice(0, 5)) {
+    //   try {
+    //     const forecast = runForecastPipeline({
+    //       routeId: r.id,
+    //       vesselClass,
+    //       horizon: 30,
+    //       freightObservations: freightObs,
+    //       marketIndicators: [],
+    //       congestionData: getPortCongestionHistory(),
+    //       destinationPortId: route.destinationPortId,
+    //     });
+    //     forecasts[r.id] = forecast;
+    //   } catch { /* Non-fatal */ }
+    // }
 
     // Build route analytics
     const routeAnalytics: Record<string, any> = {};
