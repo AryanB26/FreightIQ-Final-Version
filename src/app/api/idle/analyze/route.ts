@@ -150,23 +150,21 @@ export async function GET(request: Request) {
       const routes = getFreightRoutes();
       const forecasts: Record<string, any> = {};
       // SKIPPED: ML pipeline causes Serverless timeouts on Netlify.
-      /*
-      for (const route of routes.slice(0, 5)) {
-        try {
-          const vessel = sampleVessels.find((v) => v.id === vesselId);
-          const forecast = runForecastPipeline({
-            routeId: route.id,
-            vesselClass: (vessel?.vesselClass ?? "Panamax") as VesselClass,
-            horizon: 30,
-            freightObservations: freightObs,
-            marketIndicators: [],
-            congestionData: getPortCongestionHistory(),
-            destinationPortId: route.destinationPortId,
-          });
-          forecasts[route.id] = forecast;
-        } catch { /* Non-fatal */ }
-      }
-      */
+      // for (const route of routes.slice(0, 5)) {
+      //   try {
+      //     const vessel = sampleVessels.find((v) => v.id === vesselId);
+      //     const forecast = runForecastPipeline({
+      //       routeId: route.id,
+      //       vesselClass: (vessel?.vesselClass ?? "Panamax") as VesselClass,
+      //       horizon: 30,
+      //       freightObservations: freightObs,
+      //       marketIndicators: [],
+      //       congestionData: getPortCongestionHistory(),
+      //       destinationPortId: route.destinationPortId,
+      //     });
+      //     forecasts[route.id] = forecast;
+      //   } catch { /* Non-fatal */ }
+      // }
 
       const routeAnalytics: Record<string, any> = {};
       for (const route of routes.slice(0, 5)) {
