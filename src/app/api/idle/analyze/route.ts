@@ -34,6 +34,9 @@ export async function POST(request: Request) {
 
     // Build forecasts for key routes
     const forecasts: Record<string, any> = {};
+    // SKIPPED: ML pipeline causes Serverless timeouts on Netlify.
+    // engine.ts falls back gracefully to "stable" outlook when empty.
+    /*
     for (const route of routes.slice(0, 5)) {
       try {
         const forecast = runForecastPipeline({
@@ -50,6 +53,7 @@ export async function POST(request: Request) {
         // Non-fatal
       }
     }
+    */
 
     // Build route analytics
     const routeAnalytics: Record<string, any> = {};
@@ -101,6 +105,8 @@ export async function GET(request: Request) {
       const routes = getFreightRoutes();
 
       const forecasts: Record<string, any> = {};
+      // SKIPPED: ML pipeline causes Serverless timeouts on Netlify.
+      /*
       for (const route of routes.slice(0, 3)) {
         try {
           const forecast = runForecastPipeline({
@@ -117,6 +123,7 @@ export async function GET(request: Request) {
           // Non-fatal
         }
       }
+      */
 
       const overview = computeFleetIdleOverview(
         { vessels: sampleVessels, freightObs, forecasts },
@@ -142,6 +149,8 @@ export async function GET(request: Request) {
       const freightObs = getFreightObservations();
       const routes = getFreightRoutes();
       const forecasts: Record<string, any> = {};
+      // SKIPPED: ML pipeline causes Serverless timeouts on Netlify.
+      /*
       for (const route of routes.slice(0, 5)) {
         try {
           const vessel = sampleVessels.find((v) => v.id === vesselId);
@@ -157,6 +166,7 @@ export async function GET(request: Request) {
           forecasts[route.id] = forecast;
         } catch { /* Non-fatal */ }
       }
+      */
 
       const routeAnalytics: Record<string, any> = {};
       for (const route of routes.slice(0, 5)) {
