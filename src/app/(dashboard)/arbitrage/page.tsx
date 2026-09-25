@@ -65,7 +65,7 @@ export default function ArbitrageRadarPage() {
               <label className="text-xs font-medium text-muted-foreground">Vessel Class</label>
               <select
                 value={vesselClass}
-                onChange={(e) => setVesselClass(e.target.value)}
+                onChange={(e) => setVesselClass(e.target.value as any)}
                 className="w-full px-3 py-2 text-sm border rounded-md bg-background"
               >
                 {currentRoute?.vesselClasses.map(vc => (
